@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Prob06_BFS_8Queens {
-    static int N;
+    static final int N = 8;
 
     static class State {
         List<Integer> board;
@@ -14,11 +14,7 @@ public class Prob06_BFS_8Queens {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("=== N-Queens Problem using BFS ===");
-        System.out.print("Enter N (e.g., 8 for 8-Queens): ");
-        N = sc.nextInt();
-
+        System.out.println("=== 8-Queens Problem using BFS ===");
         System.out.println("\nSolving...\n");
         bfs();
     }

@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Prob27_AStar_8Queens {
-    static int N;
+    static final int N = 8;
 
     static class State implements Comparable<State> {
         List<Integer> board;
@@ -33,10 +33,7 @@ public class Prob27_AStar_8Queens {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("=== N-Queens Problem using A* Search ===");
-        System.out.print("Enter N: "); N = sc.nextInt();
-
+        System.out.println("=== 8-Queens Problem using A* Search ===");
         System.out.println("\nSolving...\n");
         astar();
     }

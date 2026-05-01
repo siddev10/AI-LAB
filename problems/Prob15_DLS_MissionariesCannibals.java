@@ -18,7 +18,8 @@ public class Prob15_DLS_MissionariesCannibals {
         System.out.println("=== Missionaries & Cannibals using DLS ===");
         System.out.print("Enter total Missionaries: "); totalM = sc.nextInt();
         System.out.print("Enter total Cannibals: "); totalC = sc.nextInt();
-        System.out.print("Enter Depth Limit (e.g., 3): "); maxDepth = sc.nextInt();
+        maxDepth = 3;
+        System.out.println("Depth Limit is set to: " + maxDepth);
 
         System.out.println("\nSolving...\n");
         dls();

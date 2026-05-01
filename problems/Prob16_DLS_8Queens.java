@@ -1,7 +1,8 @@
 import java.util.*;
 
 public class Prob16_DLS_8Queens {
-    static int N, maxDepth;
+    static final int N = 8;
+    static final int maxDepth = 3;
 
     static class State {
         List<Integer> board;
@@ -14,11 +15,8 @@ public class Prob16_DLS_8Queens {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("=== N-Queens Problem using DLS ===");
-        System.out.print("Enter N: "); N = sc.nextInt();
-        System.out.print("Enter Depth Limit (e.g., 3): "); maxDepth = sc.nextInt();
-
+        System.out.println("=== 8-Queens Problem using DLS ===");
+        System.out.println("Using Depth Limit = " + maxDepth);
         System.out.println("\nSolving...\n");
         dls();
     }

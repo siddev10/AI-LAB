@@ -71,8 +71,8 @@ public class Prob12_DLS_WaterJar {
         jug2Cap = sc.nextInt();
         System.out.print("Enter target amount: ");
         target = sc.nextInt();
-        System.out.print("Enter Depth Limit (e.g., 3): ");
-        maxDepth = sc.nextInt();
+        maxDepth = 3;
+        System.out.println("Depth Limit is set to: " + maxDepth);
 
         System.out.println("\nSolving...\n");
         dls();

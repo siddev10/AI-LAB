@@ -24,8 +24,8 @@ public class Prob13_DLS_8Puzzle {
         startState = sc.next();
         System.out.print("Enter Goal State (e.g., 123456780): ");
         goalState = sc.next();
-        System.out.print("Enter Depth Limit (e.g., 3): ");
-        maxDepth = sc.nextInt();
+        maxDepth = 3;
+        System.out.println("Depth Limit is set to: " + maxDepth);
 
         if (startState.length() != 9 || goalState.length() != 9) return;
 

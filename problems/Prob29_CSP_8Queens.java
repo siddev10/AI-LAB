@@ -1,14 +1,11 @@
 import java.util.*;
 
 public class Prob29_CSP_8Queens {
-    static int N;
+    static final int N = 8;
     static int[] board;
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("=== N-Queens Constraint Satisfaction Problem ===");
-        System.out.print("Enter N (e.g., 8 for 8-Queens): ");
-        N = sc.nextInt();
+        System.out.println("=== 8-Queens Constraint Satisfaction Problem ===");
         
         board = new int[N];
         Arrays.fill(board, -1);

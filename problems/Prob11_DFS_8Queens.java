@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Prob11_DFS_8Queens {
-    static int N;
+    static final int N = 8;
 
     static class State {
         List<Integer> board;
@@ -14,11 +14,7 @@ public class Prob11_DFS_8Queens {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("=== N-Queens Problem using DFS ===");
-        System.out.print("Enter N: ");
-        N = sc.nextInt();
-
+        System.out.println("=== 8-Queens Problem using DFS ===");
         System.out.println("\nSolving...\n");
         dfs();
     }
