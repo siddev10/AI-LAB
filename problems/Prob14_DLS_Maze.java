@@ -1,0 +1,75 @@
+import java.util.*;
+
+public class Prob14_DLS_Maze {
+    static int rows, cols, maxDepth;
+    static int[][] maze;
+    static int startR, startC, targetR, targetC;
+
+    static class Point {
+        int r, c, depth;
+        String path;
+
+        Point(int r, int c, int depth, String path) {
+            this.r = r;
+            this.c = c;
+            this.depth = depth;
+            this.path = path;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Maze Problem using DLS ===");
+        System.out.print("Enter number of rows and columns: ");
+        rows = sc.nextInt();
+        cols = sc.nextInt();
+
+        maze = new int[rows][cols];
+        System.out.println("Enter the maze (0 for path, 1 for wall):");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) maze[i][j] = sc.nextInt();
+        }
+
+        System.out.print("Enter start position (row col): ");
+        startR = sc.nextInt(); startC = sc.nextInt();
+
+        System.out.print("Enter target position (row col): ");
+        targetR = sc.nextInt(); targetC = sc.nextInt();
+
+        System.out.print("Enter Depth Limit (e.g., 3): ");
+        maxDepth = sc.nextInt();
+
+        System.out.println("\nSolving...\n");
+        dls();
+    }
+
+    static void dls() {
+        Stack<Point> stack = new Stack<>();
+        stack.push(new Point(startR, startC, 0, "Start: (" + startR + ", " + startC + ")\n"));
+
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        String[] dirNames = {"Up", "Down", "Left", "Right"};
+
+        while (!stack.isEmpty()) {
+            Point curr = stack.pop();
+
+            if (curr.r == targetR && curr.c == targetC) {
+                System.out.println("=== Path Found ===");
+                System.out.println(curr.path);
+                return;
+            }
+
+            if (curr.depth >= maxDepth) continue;
+
+            for (int i = 0; i < 4; i++) {
+                int nr = curr.r + dirs[i][0];
+                int nc = curr.c + dirs[i][1];
+
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && maze[nr][nc] == 0) {
+                    stack.push(new Point(nr, nc, curr.depth + 1, curr.path + "Depth " + (curr.depth + 1) + " - Move " + dirNames[i] + " to (" + nr + ", " + nc + ")\n"));
+                }
+            }
+        }
+        System.out.println("No path found within depth limit.");
+    }
+}
