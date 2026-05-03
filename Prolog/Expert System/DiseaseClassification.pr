@@ -1,0 +1,48 @@
+% ===================== KNOWLEDGE BASE =====================
+has_symptom(patient1, fever).
+has_symptom(patient1, cough).
+has_symptom(patient1, cold).
+
+has_symptom(patient2, fever).
+has_symptom(patient2, rash).
+has_symptom(patient2, joint_pain).
+
+has_symptom(patient3, frequent_urination).
+has_symptom(patient3, increased_thirst).
+has_symptom(patient3, fatigue).
+
+has_symptom(patient4, chest_pain).
+has_symptom(patient4, shortness_of_breath).
+has_symptom(patient4, fatigue).
+
+% ===================== INFERENCE RULES =====================
+
+has_disease(Patient, common_cold) :-
+    has_symptom(Patient, fever),
+    has_symptom(Patient, cough),
+    has_symptom(Patient, cold).
+
+has_disease(Patient, dengue) :-
+    has_symptom(Patient, fever),
+    has_symptom(Patient, rash),
+    has_symptom(Patient, joint_pain).
+
+has_disease(Patient, diabetes) :-
+    has_symptom(Patient, frequent_urination),
+    has_symptom(Patient, increased_thirst),
+    has_symptom(Patient, fatigue).
+
+has_disease(Patient, heart_disease) :-
+    has_symptom(Patient, chest_pain),
+    has_symptom(Patient, shortness_of_breath),
+    has_symptom(Patient, fatigue).
+
+% Catch-all: unknown if no rule matches
+diagnosis(Patient, Disease) :- has_disease(Patient, Disease).
+diagnosis(Patient, unknown) :- \+ has_disease(Patient, _).
+
+% ===================== QUERIES =====================
+% ?- diagnosis(patient1, D).   --> D = common_cold
+% ?- diagnosis(patient2, D).   --> D = dengue
+% ?- diagnosis(patient3, D).   --> D = diabetes
+% ?- diagnosis(patient4, D).   --> D = heart_disease

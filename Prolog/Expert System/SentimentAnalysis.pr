@@ -1,0 +1,70 @@
+% ===================== KNOWLEDGE BASE =====================
+% Lexicon of positive and negative words
+positive_word(good).
+positive_word(great).
+positive_word(excellent).
+positive_word(happy).
+positive_word(love).
+positive_word(amazing).
+positive_word(wonderful).
+
+negative_word(bad).
+negative_word(terrible).
+negative_word(awful).
+negative_word(hate).
+negative_word(poor).
+negative_word(horrible).
+negative_word(sad).
+
+% Sample sentences as lists of words
+sentence(s1, [the, movie, was, excellent, and, amazing]).
+sentence(s2, [the, food, was, terrible, and, horrible]).
+sentence(s3, [i, love, this, great, product]).
+sentence(s4, [this, is, a, bad, and, poor, experience]).
+sentence(s5, [the, weather, is, okay]).  % neutral
+
+% ===================== INFERENCE RULES =====================
+
+% Count positive words in a list
+count_positive([], 0).
+count_positive([H|T], Count) :-
+    positive_word(H), !,
+    count_positive(T, Rest),
+    Count is Rest + 1.
+count_positive([_|T], Count) :- count_positive(T, Count).
+
+% Count negative words in a list
+count_negative([], 0).
+count_negative([H|T], Count) :-
+    negative_word(H), !,
+    count_negative(T, Rest),
+    Count is Rest + 1.
+count_negative([_|T], Count) :- count_negative(T, Count).
+
+% Classify sentiment
+sentiment(Words, positive) :-
+    count_positive(Words, P),
+    count_negative(Words, N),
+    P > N.
+
+sentiment(Words, negative) :-
+    count_positive(Words, P),
+    count_negative(Words, N),
+    N > P.
+
+sentiment(Words, neutral) :-
+    count_positive(Words, P),
+    count_negative(Words, N),
+    P =:= N.
+
+% Analyze a named sentence
+analyze(SentenceID, Sentiment) :-
+    sentence(SentenceID, Words),
+    sentiment(Words, Sentiment).
+
+% ===================== QUERIES =====================
+% ?- analyze(s1, S).   --> S = positive
+% ?- analyze(s2, S).   --> S = negative
+% ?- analyze(s3, S).   --> S = positive
+% ?- analyze(s4, S).   --> S = negative
+% ?- analyze(s5, S).   --> S = neutral

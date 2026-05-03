@@ -1,0 +1,37 @@
+% ===================== KNOWLEDGE BASE =====================
+has_property(dog, has_fur).
+has_property(dog, gives_milk).
+has_property(dog, has_legs).
+has_property(dog, barks).
+
+has_property(eagle, has_feathers).
+has_property(eagle, has_wings).
+has_property(eagle, lays_eggs).
+
+has_property(shark, lives_in_water).
+has_property(shark, has_fins).
+has_property(shark, lays_eggs).
+
+has_property(frog, lives_in_water).
+has_property(frog, lives_on_land).
+has_property(frog, lays_eggs).
+
+% ===================== INFERENCE RULES =====================
+
+is_mammal(X)   :- has_property(X, has_fur), has_property(X, gives_milk).
+is_bird(X)     :- has_property(X, has_feathers), has_property(X, has_wings).
+is_fish(X)     :- has_property(X, lives_in_water), has_property(X, has_fins).
+is_amphibian(X):- has_property(X, lives_in_water), has_property(X, lives_on_land).
+is_reptile(X)  :- has_property(X, lays_eggs), \+ is_bird(X), \+ is_amphibian(X), \+ is_fish(X).
+
+identify(X, mammal)    :- is_mammal(X).
+identify(X, bird)      :- is_bird(X).
+identify(X, fish)      :- is_fish(X).
+identify(X, amphibian) :- is_amphibian(X).
+identify(X, reptile)   :- is_reptile(X).
+
+% ===================== QUERIES =====================
+% ?- identify(dog, Class).    --> Class = mammal
+% ?- identify(eagle, Class).  --> Class = bird
+% ?- identify(shark, Class).  --> Class = fish
+% ?- identify(frog, Class).   --> Class = amphibian

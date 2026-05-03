@@ -1,0 +1,49 @@
+% ===================== FACTS =====================
+has_seeds(apple).
+has_seeds(mango).
+has_seeds(tomato).
+has_seeds(cucumber).
+
+sweet(apple).
+sweet(mango).
+sweet(watermelon).
+
+grows_underground(potato).
+grows_underground(carrot).
+grows_underground(beetroot).
+
+has_skin(banana).
+has_skin(orange).
+has_skin(potato).
+
+edible_raw(apple).
+edible_raw(mango).
+edible_raw(carrot).
+edible_raw(cucumber).
+
+cooked_mainly(potato).
+cooked_mainly(beetroot).
+
+% ===================== RULES =====================
+
+% Botanical: fruit has seeds and is sweet or edible raw
+fruit(X) :- has_seeds(X), sweet(X).
+fruit(X) :- has_seeds(X), edible_raw(X).
+
+% Vegetable: grows underground OR not sweet and not a fruit
+vegetable(X) :- grows_underground(X).
+vegetable(X) :- \+ sweet(X), \+ fruit(X), edible_raw(X).
+
+citrus_fruit(orange).
+citrus_fruit(lemon).
+
+tropical_fruit(X) :- fruit(X), member(X, [mango, banana, papaya]).
+
+root_vegetable(X) :- vegetable(X), grows_underground(X).
+
+% ===================== QUERIES =====================
+% ?- fruit(apple).            --> true
+% ?- fruit(tomato).           --> true (has seeds + edible raw)
+% ?- vegetable(potato).       --> true
+% ?- root_vegetable(X).       --> X = potato, carrot, beetroot
+% ?- tropical_fruit(X).       --> X = mango

@@ -1,0 +1,46 @@
+% ===================== FACTS =====================
+has_engine(car).
+has_engine(truck).
+has_engine(motorcycle).
+has_engine(bicycle).
+
+has_wheels(car).
+has_wheels(truck).
+has_wheels(motorcycle).
+has_wheels(bicycle).
+has_wheels(boat).
+
+num_wheels(car, 4).
+num_wheels(truck, 6).
+num_wheels(motorcycle, 2).
+num_wheels(bicycle, 2).
+
+uses_road(car).
+uses_road(truck).
+uses_road(motorcycle).
+uses_road(bicycle).
+
+uses_water(boat).
+uses_fuel(car).
+uses_fuel(truck).
+uses_fuel(motorcycle).
+
+% ===================== RULES =====================
+
+land_vehicle(X)  :- has_wheels(X), uses_road(X).
+water_vehicle(X) :- uses_water(X).
+
+motorized(X)     :- has_engine(X), uses_fuel(X).
+non_motorized(X) :- has_wheels(X), \+ uses_fuel(X).
+
+two_wheeler(X)   :- num_wheels(X, 2).
+four_wheeler(X)  :- num_wheels(X, 4).
+
+heavy_vehicle(X) :- num_wheels(X, N), N >= 6.
+
+% ===================== QUERIES =====================
+% ?- motorized(car).          --> true
+% ?- non_motorized(X).        --> X = bicycle
+% ?- two_wheeler(X).          --> X = motorcycle, X = bicycle
+% ?- heavy_vehicle(X).        --> X = truck
+% ?- land_vehicle(boat).      --> false

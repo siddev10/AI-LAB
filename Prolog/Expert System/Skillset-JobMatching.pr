@@ -1,0 +1,38 @@
+% ===================== KNOWLEDGE BASE =====================
+% Skills a person has
+has_skill(alice, python).
+has_skill(alice, machine_learning).
+has_skill(alice, sql).
+
+has_skill(bob, java).
+has_skill(bob, spring_boot).
+has_skill(bob, sql).
+
+has_skill(carol, html).
+has_skill(carol, css).
+has_skill(carol, javascript).
+
+% Required skills per job role
+required_skill(data_scientist, python).
+required_skill(data_scientist, machine_learning).
+required_skill(data_scientist, sql).
+
+required_skill(backend_developer, java).
+required_skill(backend_developer, spring_boot).
+
+required_skill(frontend_developer, html).
+required_skill(frontend_developer, css).
+required_skill(frontend_developer, javascript).
+
+% ===================== INFERENCE RULES =====================
+
+% A person qualifies for a job if they have ALL required skills
+qualifies(Person, Job) :-
+    \+ (required_skill(Job, Skill), \+ has_skill(Person, Skill)).
+%   ^ There is NO required skill for Job that Person does NOT have
+
+% ===================== QUERIES =====================
+% ?- qualifies(alice, data_scientist).    --> true
+% ?- qualifies(bob, backend_developer).  --> true
+% ?- qualifies(carol, data_scientist).   --> false
+% ?- qualifies(Who, frontend_developer). --> Who = carol

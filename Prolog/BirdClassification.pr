@@ -1,0 +1,40 @@
+% ===================== FACTS =====================
+has_wings(eagle).
+has_wings(penguin).
+has_wings(bat).
+has_wings(parrot).
+
+lays_eggs(eagle).
+lays_eggs(penguin).
+lays_eggs(parrot).
+
+can_fly(eagle).
+can_fly(parrot).
+
+has_feathers(eagle).
+has_feathers(penguin).
+has_feathers(parrot).
+
+lives_in_water(penguin).
+is_mammal(bat).
+
+% ===================== RULES =====================
+
+% A bird has wings + feathers + lays eggs
+bird(X) :- has_wings(X), has_feathers(X), lays_eggs(X).
+
+% A flying bird is a bird that can fly
+flying_bird(X) :- bird(X), can_fly(X).
+
+% A flightless bird is a bird that cannot fly
+flightless_bird(X) :- bird(X), \+ can_fly(X).
+
+% Aquatic bird lives in water and is a bird
+aquatic_bird(X) :- bird(X), lives_in_water(X).
+
+% ===================== QUERIES =====================
+% ?- bird(eagle).           --> true
+% ?- bird(bat).             --> false (no feathers, doesn't lay eggs)
+% ?- flying_bird(X).        --> X = eagle, X = parrot
+% ?- flightless_bird(X).    --> X = penguin
+% ?- aquatic_bird(X).       --> X = penguin
